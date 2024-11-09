@@ -7,37 +7,57 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-csv_file_path = "data.csv"
-
-
-fieldnames = [
+comment_file = "comments.csv"
+share_file = "shares.csv"
+comment_fields = [
     "profile_url",
     "profile_name",
     "comment_url",
-    "content",
+    "comment_content",
+    "comment_date",
     "photo_url",
     "reaction_count",
-    "date",
+]
+share_fields = [
+    "profile_url",
+    "share_url",
+    "share_content",
+    "share_date",
 ]
 
 
 # A route to handle JSON requests and return a response
-@app.route("/", methods=["POST"])
-def post_data():
-    global first, count
-    if count >= 300:
-        return jsonify("Reached the limit")
+@app.route("/comments", methods=["POST"])
+def post_comments():
+    first_line = ""
     data = request.get_json()  # Get the JSON data from the request
     data = [{k: v for k, v in d.items() if v} for d in data if d]
     __import__("pprint").pprint(data)
-    with open(csv_file_path, "a", newline="") as file:
-        writer = csv.DictWriter(file, fieldnames=fieldnames)
-        if count == 0:
+    if os.path.exists(comment_file):
+        with open(comment_file, "r") as file:
+            first_line = file.readline().strip()
+    with open(comment_file, "a", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=comment_fields)
+        if "profile_name" not in first_line:
             writer.writeheader()
         writer.writerows(data)
-        if data:
-            count += 1
-    print(count)
+    return jsonify(data)
+
+
+@app.route("/shares", methods=["POST"])
+def post_shares():
+    first_line = ""
+    data = request.get_json()  # Get the JSON data from the request
+    data = [{k: v for k, v in d.items() if v} for d in data if d]
+    __import__("pprint").pprint(data)
+    if os.path.exists(share_file):
+        with open(share_file, "r") as file:
+            first_line = file.readline().strip()
+    with open(share_file, "a", newline="") as file:
+        writer = csv.DictWriter(file, fieldnames=share_fields)
+        if "profile_name" not in first_line:
+            writer.writeheader()
+        writer.writerows(data)
     return jsonify(data)
 
 
