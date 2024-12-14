@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 import polars as pl
@@ -19,7 +20,9 @@ def parse_date(date_str):
 
 
 df_comments = pl.read_csv("comments.csv", has_header=True)
-df_shares = pl.read_csv("shares.csv", has_header=True)
+df_shares = None
+if os.path.exists("shares.csv"):
+    df_shares = pl.read_csv("shares.csv", has_header=True)
 
 
 # Function to clean the profile_url
@@ -54,22 +57,22 @@ df_comments = df_comments.with_columns(
     ]
 ).unique(subset=["comment_url"])
 
-df_shares = df_shares.with_columns(
-    [
-        pl.col("profile_url")
-        .map_elements(clean_profile_url, return_dtype=pl.Utf8)
-        .alias("profile_url"),
-        pl.col("share_url")
-        .map_elements(clean_post_url, return_dtype=pl.Utf8)
-        .alias("share_url"),
-        pl.col("share_date")
-        .str.to_datetime(format="%A %d %B %Y at %I:%M %p", strict=False)
-        .alias("share_date"),
-    ]
-).unique(subset=["share_url"])
-
-
-df = df_comments.join(df_shares, on="profile_url", how="left")
+df = df_comments
+if df_shares is not None:
+    df_shares = df_shares.with_columns(
+        [
+            pl.col("profile_url")
+            .map_elements(clean_profile_url, return_dtype=pl.Utf8)
+            .alias("profile_url"),
+            pl.col("share_url")
+            .map_elements(clean_post_url, return_dtype=pl.Utf8)
+            .alias("share_url"),
+            pl.col("share_date")
+            .str.to_datetime(format="%A %d %B %Y at %I:%M %p", strict=False)
+            .alias("share_date"),
+        ]
+    ).unique(subset=["share_url"])
+    df = df_comments.join(df_shares, on="profile_url", how="left")
 
 df = df.drop(["photo_url", "reaction_count"])
 df.write_csv("data_clean.csv")

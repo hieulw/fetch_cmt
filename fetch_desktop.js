@@ -1,3 +1,25 @@
+function formatDate(date) {
+  // Get the parts individually
+  const dayName = new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(
+    date,
+  );
+  const day = new Intl.DateTimeFormat("en-US", { day: "numeric" }).format(date);
+  const month = new Intl.DateTimeFormat("en-US", { month: "long" }).format(
+    date,
+  );
+  const year = new Intl.DateTimeFormat("en-US", { year: "numeric" }).format(
+    date,
+  );
+  const time = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(date);
+
+  // Combine the parts
+  return `${dayName} ${day} ${month} ${year} at ${time}`;
+}
+
 function fetchComments() {
   let data = [];
   let comments = document.querySelectorAll(".x169t7cy");

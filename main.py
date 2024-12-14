@@ -7,6 +7,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+cursor_file = "cursor.txt"
 comment_file = "comments.csv"
 share_file = "shares.csv"
 comment_fields = [
