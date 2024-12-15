@@ -21,7 +21,7 @@ function formatDate(date) {
 }
 
 cursor =
-  "MToxNzM0MTk1OTc3OgF1VqAOqwH9rk0dmxpcdhheUtLoRMhCBvkDDyyEk4dIUthHxGt-tBOvrpwELgMA4JqYz_EJI3_7BxYXDPfR8EgvBZPlS-yOz_ADbfCJ7j4zVjhkvZjDbWe91sJp6zQFaLaRqrc1CbSIuObciYQwfwdBPWS4155_H7s578XcDxI2uMBlyXySHPgCQpob9zx-DlsL0AxduJ4N10rf2o9KyB8JEBYMpaJDvTefLCLzUaH4WGmZy90huEYEZSJIPtz_QhBYkxR3XtMfsiFt";
+  "MToxNzM0MTk2OTE4OgF1TrhGqzSZtA24wFfwhTzMBUuURjelCFI4nwPGimAVVWJKbpzalU3AUdvSLGGUbsEKX_1UoRSwTMFA8weOgMcyS9uzRxvairhDpyW2Zzg3Gjf5GR1e6YlXyepXqW1NS7wpG4pYvJYDQNYNCFErH6AEXlj0FHigzauzNnkMXrZb4o2nbJN_EmYmEr2mx2YZJTeOjomPUBGAKnNVy5jUyqhJA50U4WX4SCkzbdq3diy69S8ob7fpyxOgMqA-dagvdSCV12ukB0VNQLJP";
 fetchComments = setInterval(() => {
   data = {
     // av: "61552863561599",
@@ -41,7 +41,7 @@ fetchComments = setInterval(() => {
     //   "gkgbAj131jf9MxkhOn24dhafbGYox6GqRlTeNldkRljsx9btHHFsz8GjZq44KAKICOXA_GAjVyAAKJXGmh5iSi9i9jAy-qXJeVZaVdyX-mHGdkRkQF4l2m46m4ohAWTGEx-8iG64il6BF7pqz-HKtql4K59BByk8Gex2qmeypk4qyFoO2TBDGHAgiAyUC5k7bxG-44i9AzaGE9UpKqaADCgC698gGqA6UJem4FU9kbx3zFoqCx64989Gz9WGfx216yU4-icyESayopyEvxBG1hCz8nAwwwj8myU-2y2S3Gi1RCwUAh-2C48C2G4pojxi4oSq2KaBgmwhUhCLU2Wwf5a-3h7Bm1bwBz8gGSGocVayL4am4l62MJ9wau2y13Ao1x8booW8EGfGE5rg42oIk6Ay7yGOltGA1OwkE1VO1a4EW1BXzaxC4kbxW362W1LximtiljAx20xEOEV3mi18y4m1swTBoSKboc80q-xB00IhkC9V5dU0gTyo0oPw56wAw0Bswpo3Rxh0ea01L-z80nfw3YJAwro5m5o0hUxa0nKaDw5_w2co4-lO068way_Hyo19U2Aw5BwbO37w3vOzo2zw2p85qcmu5bwWwjE1-oeU3xwNw18-0QEfu04oQ1my80Xm0oG0gi0hRwci02XRaE14U0Cq04VEbi082awkE0jbw15y0jmteE0OG05cE2DwjE",
     // __comet_req: "15",
     fb_dtsg:
-      "NAcNTlEdIsXnd5lEL5ccWucvxoDPsBlq_EAjR2OIMlb14Fuijddg0ag:20:1725462654",
+      "NAcNOuJZE1PNsDzubVFqXuXrwncwYuoZJ6hm0GR9SDuza5E0WQ0jYtg:20:1725462654",
     // jazoest: "25548",
     // lsd: "FhT3t3r4iBrgupDR4JEXy6",
     __spin_r: "1018882924",
@@ -63,7 +63,7 @@ fetchComments = setInterval(() => {
       __relay_internal__pv__IsWorkUserrelayprovider: false,
     }),
     server_timestamps: "true",
-    doc_id: "8522414077876696",
+    doc_id: "9152476188133470",
   };
 
   request = new URLSearchParams(data);
@@ -136,5 +136,6 @@ fetchComments = setInterval(() => {
       }
 
       cursor = paging_data["end_cursor"];
+      console.log(cursor);
     });
 }, 5000);
